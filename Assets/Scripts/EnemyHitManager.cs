@@ -6,7 +6,7 @@ public class EnemyHitManager : MonoBehaviour
     private float currentHP = 0;
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         currentHP = hp;
     }
@@ -29,7 +29,6 @@ public class EnemyHitManager : MonoBehaviour
         if (currentHP < 1)
         {
             gameObject.SetActive(false);
-            currentHP = hp;
         }
     }
 }

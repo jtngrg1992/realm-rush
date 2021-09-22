@@ -17,17 +17,29 @@ public class EnemyPool : MonoBehaviour
 
     void Start()
     {
-        // StartCoroutine(SpawnEnemy());
+        StartCoroutine(SpawnEnemy());
     }
 
     IEnumerator SpawnEnemy()
     {
         while (true)
         {
-            Instantiate(enemyPrefab, transform); // instantiate a new enemy instance and put it under a single parent
+            ActivateEnemyFromPool();
             yield return new WaitForSeconds(spawnWaitTime);
         }
 
+    }
+
+    void ActivateEnemyFromPool()
+    {
+        foreach (GameObject enemy in pool)
+        {
+            if (!enemy.activeInHierarchy)
+            {
+                enemy.SetActive(true);
+                return;
+            }
+        }
     }
 
     void CreatePool()

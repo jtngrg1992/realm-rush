@@ -115,7 +115,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 7.55
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -4850,6 +4850,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 3144582324300694500}
+  targetRange: 15
+  projectileSystem: {fileID: 7736266331062865853}
 --- !u!1 &6131056645070147807
 GameObject:
   m_ObjectHideFlags: 0
