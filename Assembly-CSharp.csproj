@@ -75,6 +75,7 @@
      <Compile Include="Assets\Asset Packs\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
      <Compile Include="Assets\Scripts\TargetLocator.cs" />
      <Compile Include="Assets\Scripts\EnemyHitManager.cs" />
+     <Compile Include="Assets\Scripts\EnemyPool.cs" />
      <None Include="Assets\Asset Packs\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\Asset Packs\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\Asset Packs\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

@@ -59,14 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07d929909597d46ac87ea943ca128923, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  path: []
   speed: 1
 --- !u!114 &6519248908525774696
 MonoBehaviour:
@@ -80,7 +73,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4d151385db754aa794979170c3ad056, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 5
+  hp: 1
 --- !u!1 &5927373880264498990
 GameObject:
   m_ObjectHideFlags: 0

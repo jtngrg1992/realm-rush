@@ -10,6 +10,7 @@ public class EnemyMover : MonoBehaviour
     void Start()
     {
         FindPath();
+        MoveToStart();
         StartCoroutine(FollowPath());
     }
 
@@ -21,6 +22,11 @@ public class EnemyMover : MonoBehaviour
         {
             path.Add(waypoint.GetComponent<Waypoint>());
         }
+    }
+
+    void MoveToStart()
+    {
+        transform.position = path[0].transform.position;
     }
 
 
