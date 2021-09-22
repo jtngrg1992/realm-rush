@@ -4,17 +4,16 @@ public class EnemyHitManager : MonoBehaviour
 {
     [SerializeField] float hp = 5;
     private float currentHP = 0;
+    private Enemy enemy;
 
-    // Start is called before the first frame update
+    private void Start()
+    {
+        enemy = GetComponent<Enemy>();
+    }
+
     void OnEnable()
     {
         currentHP = hp;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     private void OnParticleCollision(GameObject other)
@@ -28,7 +27,9 @@ public class EnemyHitManager : MonoBehaviour
 
         if (currentHP < 1)
         {
+            // dead
             gameObject.SetActive(false);
+            enemy.RewardGold();
         }
     }
 }

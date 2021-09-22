@@ -4,15 +4,31 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    [SerializeField] int goldReward = 15;
+    [SerializeField] int goldPenalty = 15;
+
+    private Bank bank;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        bank = FindObjectOfType<Bank>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void RewardGold()
     {
-        
+        if (bank == null)
+        {
+            return;
+        }
+
+        bank.DepositAmount(goldReward);
+    }
+
+    public void PenaliseGold()
+    {
+        if (bank == null) { return; }
+
+        bank.WithdrawAmount(goldPenalty);
     }
 }
