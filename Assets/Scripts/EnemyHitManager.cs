@@ -28,7 +28,8 @@ public class EnemyHitManager : MonoBehaviour
 
         if (currentHP < 1)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            currentHP = hp;
         }
     }
 }

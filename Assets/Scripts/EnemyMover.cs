@@ -48,5 +48,6 @@ public class EnemyMover : MonoBehaviour
                 yield return new WaitForEndOfFrame();
             }
         }
+        gameObject.SetActive(false);
     }
 }
