@@ -40,6 +40,7 @@ public class Waypoint : MonoBehaviour
         if (gridManager.GetNode(coordinates).isWalkable && !pathFinder.WillBlockPath(coordinates))
         {
             SpawnTower();
+            pathFinder.NotifyPathChange();
         }
     }
 

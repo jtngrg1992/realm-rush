@@ -20,10 +20,14 @@ public class Tower : MonoBehaviour
         }
         else
         {
-            bank.WithdrawAmount(cost);
-            Instantiate(prefab, position, Quaternion.identity);
-            return true;
-        }
+            if (bank.CurrentReserve > cost)
+            {
+                bank.WithdrawAmount(cost);
+                Instantiate(prefab, position, Quaternion.identity);
+                return true;
+            }
 
+        }
+        return false;
     }
 }

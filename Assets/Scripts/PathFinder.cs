@@ -5,12 +5,21 @@ using UnityEngine;
 public class PathFinder : MonoBehaviour
 {
     [SerializeField] Vector2Int startCoordinates;
+    public Vector2Int StartCoordinates { get { return startCoordinates; } }
     [SerializeField] Vector2Int destinationCoordinates;
+    public Vector2Int DestinationCoordinates { get { return destinationCoordinates; } }
 
     private Node startNode;
     private Node destinationNode;
     private Node currentSearchNode;
     private List<Node> currentPath = new List<Node>();
+    public List<Node> CurrentPath
+    {
+        get
+        {
+            return currentPath;
+        }
+    }
 
     Dictionary<Vector2Int, Node> reached = new Dictionary<Vector2Int, Node>();
     Queue<Node> frontier = new Queue<Node>();
@@ -27,20 +36,18 @@ public class PathFinder : MonoBehaviour
         if (gridManager != null)
         {
             grid = gridManager.Grid;
+            startNode = grid[startCoordinates];
+            destinationNode = grid[destinationCoordinates];
         }
-
-
     }
 
     void Start()
     {
-        startNode = gridManager.Grid[startCoordinates];
-        destinationNode = gridManager.Grid[destinationCoordinates];
         currentPath = CreateNewPath();
     }
 
 
-    private List<Node> CreateNewPath()
+    public List<Node> CreateNewPath()
     {
         gridManager.ResetNodes();
         BreadthFirstSearch();
@@ -76,6 +83,8 @@ public class PathFinder : MonoBehaviour
 
     private void BreadthFirstSearch()
     {
+        startNode.isWalkable = true;
+        destinationNode.isWalkable = true;
         currentPath.Clear();
         frontier.Clear();
         reached.Clear();
@@ -84,7 +93,6 @@ public class PathFinder : MonoBehaviour
 
         frontier.Enqueue(startNode);
         startNode.isPath = true;
-        startNode.isExplored = true;
         reached.Add(startCoordinates, startNode);
 
         while (isRunning && frontier.Count > 0)
@@ -144,5 +152,10 @@ public class PathFinder : MonoBehaviour
 
         }
         return false;
+    }
+
+    public void NotifyPathChange()
+    {
+        BroadcastMessage("RecalculatePath", SendMessageOptions.DontRequireReceiver);
     }
 }
