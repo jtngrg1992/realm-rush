@@ -1,8 +1,11 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Enemy))]
 public class EnemyHitManager : MonoBehaviour
 {
     [SerializeField] float hp = 5;
+    [SerializeField] float difficultyRamp = 1;
+
     private float currentHP = 0;
     private Enemy enemy;
 
@@ -30,6 +33,8 @@ public class EnemyHitManager : MonoBehaviour
             // dead
             gameObject.SetActive(false);
             enemy.RewardGold();
+            // increase health points for next round
+            hp += difficultyRamp;
         }
     }
 }
