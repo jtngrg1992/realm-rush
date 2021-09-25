@@ -8,11 +8,36 @@ public class Waypoint : MonoBehaviour
     [SerializeField] bool isPlacable = false;
     [SerializeField] Tower towerPrefab;
 
+    Vector2Int coordinates = new Vector2Int();
+    GridManager gridManager;
+    PathFinder pathFinder;
+
     public bool IsPlacable { get { return isPlacable; } }
+
+
+    private void Awake()
+    {
+        gridManager = FindObjectOfType<GridManager>();
+        pathFinder = FindObjectOfType<PathFinder>();
+    }
+
+    private void Start()
+    {
+
+        if (gridManager != null)
+        {
+            coordinates = gridManager.GetCoordindatesFromPosition(transform.position);
+
+            if (!isPlacable)
+            {
+                gridManager.BlockNode(coordinates);
+            }
+        }
+    }
 
     private void OnMouseDown()
     {
-        if (isPlacable)
+        if (gridManager.GetNode(coordinates).isWalkable && !pathFinder.WillBlockPath(coordinates))
         {
             SpawnTower();
         }
@@ -20,6 +45,15 @@ public class Waypoint : MonoBehaviour
 
     private void SpawnTower()
     {
-        isPlacable = !towerPrefab.CreateTower(towerPrefab, transform.position); ;
+        bool result = towerPrefab.CreateTower(towerPrefab, transform.position);
+        if (result)
+        {
+            isPlacable = false;
+            gridManager.BlockNode(coordinates);
+        }
+        else
+        {
+            isPlacable = true;
+        }
     }
 }

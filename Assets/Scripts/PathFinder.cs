@@ -10,6 +10,7 @@ public class PathFinder : MonoBehaviour
     private Node startNode;
     private Node destinationNode;
     private Node currentSearchNode;
+    private List<Node> currentPath = new List<Node>();
 
     Dictionary<Vector2Int, Node> reached = new Dictionary<Vector2Int, Node>();
     Queue<Node> frontier = new Queue<Node>();
@@ -35,8 +36,16 @@ public class PathFinder : MonoBehaviour
     {
         startNode = gridManager.Grid[startCoordinates];
         destinationNode = gridManager.Grid[destinationCoordinates];
+        currentPath = CreateNewPath();
+    }
+
+
+    private List<Node> CreateNewPath()
+    {
+        gridManager.ResetNodes();
         BreadthFirstSearch();
         List<Node> path = BuildPath();
+        return path;
     }
 
     private void ExploreNeighbours()
@@ -67,9 +76,15 @@ public class PathFinder : MonoBehaviour
 
     private void BreadthFirstSearch()
     {
+        currentPath.Clear();
+        frontier.Clear();
+        reached.Clear();
+
         bool isRunning = true;
 
         frontier.Enqueue(startNode);
+        startNode.isPath = true;
+        startNode.isExplored = true;
         reached.Add(startCoordinates, startNode);
 
         while (isRunning && frontier.Count > 0)
@@ -103,5 +118,31 @@ public class PathFinder : MonoBehaviour
 
         path.Reverse();
         return path;
+    }
+
+    public bool WillBlockPath(Vector2Int coordinates)
+    {
+        if ((currentPath.Find(item => item.coordinates == coordinates)) != null)
+        {
+            // current path will be blocked, check if new path can be constructed
+            bool originalValue = grid[coordinates].isWalkable;
+            grid[coordinates].isWalkable = false;
+            List<Node> newPath = CreateNewPath();
+            grid[coordinates].isWalkable = originalValue;
+
+            if (newPath.Count <= 1)
+            {
+                // new path can't be constructed
+                currentPath = CreateNewPath();
+                return true;
+            }
+            else
+            {
+                currentPath = newPath;
+                return false;
+            }
+
+        }
+        return false;
     }
 }
