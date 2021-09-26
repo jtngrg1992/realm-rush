@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Enemy))]
 public class EnemyMover : MonoBehaviour
 {
-    [SerializeField] [Range(1f, 10f)] float speed = 1f;
+    [SerializeField] [Range(0.5f, 10f)] float speed = 0.5f;
 
     List<Node> path = new List<Node>();
     PathFinder pathFinder;
